@@ -8,11 +8,10 @@ require 'net/http'
 
 post '/joke/?:type?/?:format?' do
   category = params['Body']
-
   uri = URI('https://v2.jokeapi.dev/joke/'.concat(category))
   query_params = {
-    :format => params['format'] != nil ? params['format'] : 'txt',
-    :type => params['type'] != nil ? params['type'] : 'single'
+    :format => params['format'] ||= 'txt',
+    :type => params['type'] ||= 'single'
   }
   uri.query = URI.encode_www_form(query_params)
 
